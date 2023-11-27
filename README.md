@@ -6,6 +6,7 @@ By default aws creates a VPC(Virtual Private Cloud) for you. A VPC is like your 
 
 The basic diagram looks like this:
 ![graph](/vpc.png)
+
 ### IGW
 
 Internet Gate Way is like a modem that connects to the public internet.
@@ -27,9 +28,9 @@ Subnets are like your home network being part of the larger network. A subnet is
 
 "Private Subnet" does not have access to the internet. Without the IGW attached.
 
-You can create all the subnets and give then names. 
+You can create all the subnets and give then names.
 
-You can create different Route Tables with some with IGW connected and some without IGW. Then jsut associate the Subnets to the Route Tables which you want to be publich or privateaccordingly. 
+You can create different Route Tables with some with IGW connected and some without IGW. Then jsut associate the Subnets to the Route Tables which you want to be publich or privateaccordingly.
 
 ## S3
 
@@ -39,7 +40,7 @@ S3 Permission can be on the bucket level or object level.
 
 You can make an object public by changing the grantee to everyone and then under "Actions" click on "Make public".
 
-Versioning: once you turn on the Versioning feature you cannot undo it (you can suspend it though). Obviously this is going to increase cost but can be very helpful. 
+Versioning: once you turn on the Versioning feature you cannot undo it (you can suspend it though). Obviously this is going to increase cost but can be very helpful.
 
 ## EC2
 
@@ -49,7 +50,7 @@ EC2 is basically like a desktop computer you have.
 
 Amazon Machine Image - A pre-configured package to launch EC2 instance including OS, software etc.
 
-### EBS 
+### EBS
 
 Elastic Block Store is basically like a hard drive for an EC2.
 
@@ -65,17 +66,21 @@ You can create EBS snapshot which is an image of an EBS that can be stored as a 
 Input Output Operation Per Second - the amount of data that can be written to or refefived from EBS per second. This goes hand in hand with EBS, the more EBS the more power for IOPS.
 
 ### Security Group
+
 Security Group is like the NACLs but just on the instance level(e.g., EC2, RDS etc) rather than on subnet level. The way allow/deny rules work differently than NACLs.
 
 #### Inbound rules
+
 By default, for a security group everything is denied. So we have to explicitly allow something.
 
-#### Outbound rules, 
+#### Outbound rules,
+
 By default, everything is allowed for outbound.
 
 ![securitygroup](/sg.png)
 
 ### IP
+
 By default all EC2 instances have an private IP address. Private IP addresses can communicate with each other in the same VPC.
 
 EC2 instances can be lanuched wiht or without a public IP address depending on the subnet settings.
@@ -86,13 +91,52 @@ This is everything for an EC2 to communicate with the internet - which you need 
 ![ip](/ip.png)
 
 #### Example
-Create an EC2 Linux instance 
+
+Create an EC2 Linux instance
 --> Select Volumne (SSD)
-  --> Let's Create a new Security Group 
-    --> Allow Inbound rule SSH protocal 22
-    --> Allow Inbound rule HTTP protocal 80
-      --> Create Key/Pair (downalod the key/pair pem file)
+--> Let's Create a new Security Group
+--> Allow Inbound rule SSH protocal 22
+--> Allow Inbound rule HTTP protocal 80
+--> Create Key/Pair (downalod the key/pair pem file)
 To connect to the instance you go to the console and click on connect, it will give you the instructions/commands to ssh into your instance.
+You will need to use the {keypair}.pem that you created when provisioning the instance.
 
+## Databse(RDS or Dynamo)
 
+### Dynamo
+
+Dynamo is NoSQL service for AWS.
+
+### RDS
+
+Relational Database Service (SQL).
+
+Just go through the steps - should be strightforward.
+
+Default port is 3306 for RDS MySQL, the point is for every security group you assined you need to have that port allowed.
+
+## SNS
+
+SNS (Simple Notification Service) allows you to automate the sending of email or text message notification based on events that happen in your AWS account.
+
+For example, something happened with the EC2 and it crashed, you want to be notified by email - this is where the SNS can come into play(in conjunction with cloudWatch).
+
+Steps:
+
+- Create a topic
+- Add subscriptions (endpoints)
+     - e.g., email portocal
+       You can then manually publish(trigger) the notification from the console.
+
+## Cloudwatch
+
+CloudWatch is a service that allows you to monitor various elements of your AWS account.
+
+For example, you can use CloudWatch to monitor your EC2 CPU usage, and trigger an alert when it's over 80%.
+
+Or you can monitor your S3 bucket and say if the number of objects in your bucket exceeds 100 then trigger an alert.
+
+You can create a databord and choose the metrics available for your resources.
+
+Then you can create an alarm in the cloudwatch, setting threshold and rules and give it a name for the alarm.
 
