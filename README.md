@@ -202,4 +202,4 @@ def lambda_handler(event, context):
 
 This is a full overview of putting together all the elements mentioned above.
 
-[final](/final.png)
+![final](/final.png)
