@@ -138,5 +138,47 @@ Or you can monitor your S3 bucket and say if the number of objects in your bucke
 
 You can create a databord and choose the metrics available for your resources.
 
-Then you can create an alarm in the cloudwatch, setting threshold and rules and give it a name for the alarm.
+Then you can create an alarm in the cloudwatch, setting threshold and rules and give it a name for the alarm. The alarm can trigger the SNS topics to send out notifications.
+
+## ELB
+
+Elastic Load Blancer evenly distribute incoming traffice to balance the load.
+
+- Classic load balancer: On TCP layer
+- Applicaition load balancer: On http/https layer
+
+## Auto Scaling
+
+Add more or reduce servers based on demand automatically.
+
+Example to set up auto scaling (from the beginning)
+
+- go into EC2
+  -> Lanuch Configuration -> select AMI -> create lanuch configuration -> create auto scailing group
+
+- In Advanced Details,
+     - check off "Receive traffic fron one or more load balancers.
+     - add Classic Load Balancers
+     - Health check -> ELB
+- Select "Use scaling policies to adjust the capacity of this group and specify the minimum and maximum size of yout group.
+     - then you can create alarm like when CPU utilization be below a threshold, then add ec2 instances
+     - same you can set when to drop the ec2 instances
+
+## Route 53
+
+Route 53 is where you configure and manage web domain for websites or applications that you host on AWS.
+ Basically when you think about Route 53 you think about the domain (registration, DNS).
+
+- So you can use Route 53 for domain registration like "example.com"
+
+- It help translate domain name into IP address like 192.0.2.1, using DNS Server internally.
+
+- Is also performs health check your domain.
+
+![r53](/route53.png)
+
+- you can register a domain in R53 or transfer a domain in R53 by paying the fee, currently $12/year.
+- and then create record sets, such as
+  - www.{your_domain}
+    - and select elb target
 
