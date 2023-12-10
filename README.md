@@ -167,7 +167,7 @@ Example to set up auto scaling (from the beginning)
 ## Route 53
 
 Route 53 is where you configure and manage web domain for websites or applications that you host on AWS.
- Basically when you think about Route 53 you think about the domain (registration, DNS).
+Basically when you think about Route 53 you think about the domain (registration, DNS).
 
 - So you can use Route 53 for domain registration like "example.com"
 
@@ -177,8 +177,29 @@ Route 53 is where you configure and manage web domain for websites or applicatio
 
 ![r53](/route53.png)
 
-- you can register a domain in R53 or transfer a domain in R53 by paying the fee, currently $12/year.
+- you can register a domain in R53 or transfer a domain in R53 by paying the fee, currently \$12/year.
 - and then create record sets, such as
-  - www.{your_domain}
-    - and select elb target
+     - www.{your_domain}
+          - and select elb target
 
+## Lambda
+
+Lambda provides serverless computing. You can essentially imagine that it does all above mentioend (ec2 , auto scaling etc) and just managed by AWS already. 
+It charges per number of calls and the amoubnt of ime(duration) it takes to execute the code.
+
+##  hello world
+- filter hello world
+- configure trigger
+- configure function
+  - write your code here (something like below)
+```python
+def lambda_handler(event, context):
+    print(event['key1']
+    return event['key1']
+```
+
+## A full overview
+
+This is a full overview of putting together all the elements mentioned above.
+
+[final](/final.png)
